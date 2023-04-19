@@ -5,31 +5,31 @@
                 <el-card style="color: #409EFF">
                     <div><i class="el-icon-user" /> 用户总数</div>
                     <div style="padding: 10px 0; text-align: center; font-weight: bold">
-                        100
+                        {{UserSum}}
                     </div>
                 </el-card>
             </el-col>
             <el-col :span="6">
                 <el-card style="color: #F56C6C">
-                    <div><i class="el-icon-bank-card" /> 销售总量</div>
+                    <div><i class="el-icon-bank-card" /> 活动总数</div>
                     <div style="padding: 10px 0; text-align: center; font-weight: bold">
-                        ￥ 10350
+                        {{ActivitySum}}
                     </div>
                 </el-card>
             </el-col>
             <el-col :span="6">
                 <el-card style="color: #67C23A">
-                    <div><i class="el-icon-money" /> 收益总额</div>
+                    <div><i class="el-icon-money" /> 昨日新增用户数</div>
                     <div style="padding: 10px 0; text-align: center; font-weight: bold">
-                        ￥ 6800
+                        {{NewUserSum}}
                     </div>
                 </el-card>
             </el-col>
             <el-col :span="6">
                 <el-card style="color: #E6A23C">
-                    <div><i class="el-icon-s-shop" /> 门店总数</div>
+                    <div><i class="el-icon-s-shop" /> 昨日新增活动数</div>
                     <div style="padding: 10px 0; text-align: center; font-weight: bold">
-                        100
+                        {{NewActivitySum}}
                     </div>
                 </el-card>
             </el-col>
@@ -54,10 +54,29 @@
         name: "Home",
         data() {
             return {
-
+                UserSum: 0,
+                ActivitySum: 0,
+                NewUserSum: 0,
+                NewActivitySum: 0
             }
         },
         mounted() { // 页面元素div渲染好之后触发
+            // 获取用户总数
+            this.request.get("/user/sum/" + false).then(res => {
+                this.UserSum = res.data
+            });
+            // 获取活动总数
+            this.request.get("/activity/sum/" + false).then(res => {
+                this.ActivitySum = res.data
+            });
+            // 获取本月新增用户数
+            this.request.get("/user/sum/" + true).then(res => {
+                this.NewUserSum = res.data
+            });
+            // 获取本月新增活动数
+            this.request.get("/activity/sum/" + true).then(res => {
+                this.NewActivitySum = res.data
+            });
             var option = {
                 title: {
                   text: '各季度用户注册数量',

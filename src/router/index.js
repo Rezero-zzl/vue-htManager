@@ -19,6 +19,18 @@ const routes = [
     path: '/404',
     name: '404',
     component: () => import( '../views/404.vue')
+  },
+  {
+    path: '/front',
+    name: 'Front',
+    component: () => import( '../views/front/Front.vue'),
+    children: [
+      {
+        path: 'home',
+        name: 'FrontHome',
+        component: () => import( '../views/front/Home')
+      }
+    ]
   }
 ]
 
@@ -78,24 +90,23 @@ export const setRoutes = () => {
 setRoutes()
 
 // 设置路由守卫，为了再head里获取面包屑
-router.beforeEach((to,from,next) => {
-  localStorage.setItem("currentPathName",to.name)
+router.beforeEach((to, from, next) => {
+  localStorage.setItem("currentPathName", to.name)
   store.commit("setPath")
-
-  // 未找到路由
-  if (!to.matched.length) {
+  if (to.path.endsWith(".jpg") || to.path.endsWith(".png")) {
+    next() // 添加这一行
+  } else if (!to.matched.length) {
     const storeMenus = localStorage.getItem("menus")
-    console.log("-------6666--------")
     if (storeMenus) {
       next("/404")
     } else {
-      // 跳回登录界面
       next("/login")
     }
+  } else {
+    next() // 添加这一行
   }
-  next()
-
 })
+
 
 
 

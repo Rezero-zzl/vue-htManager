@@ -49,9 +49,17 @@ export default {
                             localStorage.setItem("menus",JSON.stringify(res.data.menus))   //存储登录用户菜单信息到浏览器
 
                             // 动态设置当前用户路由
-                            setRoutes()
-                            this.$router.push("/")
+                        setRoutes()
                             this.$message.success("登录成功")
+
+                            // 2月28新增不同角色，跳转不同页面（前/后台）
+                            if(res.data.role === 'ROLE_USER'){
+                                this.$router.push("/front/home")
+                            }else{
+                                this.$router.push("/")
+                            }
+                            //this.$router.push("/")
+
                         }else{
                             this.$message.error(res.msg)
                         }

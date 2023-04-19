@@ -11,12 +11,12 @@
         <el-dropdown style="width: 200px; cursor: pointer; text-align: right">
             <div style="display: inline-block">
 <!--                发现img标签并无法通过file:协议访问绝对路径的本地图片，只能通过http方式请求-->
-                <img :src="user.avatarUrl" alt=""
+                <img :src="user.avatarUrl" alt="用户头像"
                      style="width: 30px;height: 30px; border-radius: 50%; position: relative; top: 5px; right: 10px">
                 <span>{{user.nickName}}</span> <i class="el-icon-arrow-down" style="margin-left: 5px"></i>
             </div>
             <el-dropdown-menu slot="dropdown" style="width: 100px; text-align: center">
-                <el-dropdown-item style="font-size: 14px; padding: 5px 0">
+            <el-dropdown-item style="font-size: 14px; padding: 5px 0">
                     <router-link to="/password" style="text-decoration: none; color: black; ">修改密码</router-link>
                 </el-dropdown-item>
                 <el-dropdown-item style="font-size: 14px; padding: 5px 0">
@@ -54,7 +54,8 @@
             }
         },
         methods: {
-/*            collapse(){
+            /*collapse(){
+                // 2月28日，将collapse方法从注释中恢复
                this.$emit("asideCollapse")
             },*/
             logout() {
