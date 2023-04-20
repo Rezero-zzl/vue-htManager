@@ -1,15 +1,33 @@
 <template>
     <div>
         <div style="margin: 10px 0">
-            <el-carousel height="450px" :interval="5000">
-                <el-carousel-item v-for="item in imgs" :key="item">
-                    <img :src="item" alt="" style="width: 100%">
+            <!--            轮播图-->
+<!--            <el-carousel height="500px" :interval="3000">-->
+<!--                <el-carousel-item v-for="item in HotActivities" :key="item">-->
+<!--                    <img :src="item.img" alt="热门活动信息" style="width: 100%; object-fit: contain; object-position: center;">-->
+<!--                </el-carousel-item>-->
+<!--            </el-carousel>-->
+            <el-carousel :interval="4000" type="card" height="200px">
+                <el-carousel-item v-for="item in HotActivities" :key="item">
+                    <img :src="item.img" alt="热门活动信息" >
                 </el-carousel-item>
             </el-carousel>
         </div>
 
         <div style="margin: 10px 0">
             <el-row :gutter="5">
+                <el-col :span="6">
+                    1
+                </el-col>
+                <el-col :span="6">
+                    2
+                </el-col>
+                <el-col :span="6">
+                    3
+                </el-col>
+                <el-col :span="6">
+                    4
+                </el-col>
                 <el-col :span="6">
                     1
                 </el-col>
@@ -32,18 +50,17 @@
         name: "FrontHomme",
         data() {
             return {
-
-                imgs: [
-                    'https://img30.360buyimg.com/babel/s1580x830_jfs/t1/188382/20/33547/20174/63fdb9c9F4f84069f/28daa90392ab9e5a.jpg!cc_1580x830.webp',
-                    'https://img12.360buyimg.com/babel/s1580x830_jfs/t1/206269/29/28448/65329/63fc7552Ff89604bf/42468d34e889b785.jpg!cc_1580x830.webp'
-                ],
-
-                activities: [
-
-                ]
+                HotActivities: []
             }
         },
-        methods: {}
+        created() {
+            this.request.get("/normal/user/getHot").then(res => {
+                this.HotActivities = res.data
+            })
+        },
+        methods: {
+
+        }
     }
 </script>
 
